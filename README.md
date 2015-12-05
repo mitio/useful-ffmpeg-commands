@@ -6,7 +6,7 @@ This repo contains examples for useful FFmpeg commands extracted from practical 
 
 If you don't know what [FFmpeg](https://www.ffmpeg.org/) is, this page will probably be of little use to you.
 
-FFmpeg is a free, open-source software which is the Swiss Army knife of video- and audio-related processing. It can be used to do an unbelievable range of things and it's being utilized by virtually anyone who's doing any form of video processing. It comes as a command-line tool, but many programs ship with a built-in version of FFmpeg in them to be able to process multimedia files. FFmpeg will run on Linux, Windows, OS X and other platforms.
+FFmpeg is a free, open-source software and it's the Swiss Army knife of video- and audio-related processing. It can be used to do an unbelievable range of things and it's being utilized by virtually anyone who's doing any form of video processing. It comes as a command-line tool, but many programs ship with a built-in version of FFmpeg in them to be able to process multimedia files. FFmpeg will run on Linux, Windows, OS X and other platforms.
 
 This is my personal collection of FFmpeg commands, recorded here for myself to come back to and check when I need something. I'm making it public because someone else might find some pieces of information here useful.
 
@@ -140,18 +140,18 @@ Here is an excerpt of an `.ass` file for subtitles with a semi-transparent recta
     [V4+ Styles]
     Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
     Style: Default,Arial,28,&Hffffff,&Hffffff,&H44000000,&H0,0,0,0,0,100,100,0,0,3,2,0,2,10,10,10,0
-    
+
 ### Render .ASS subtitles in a video
 
     ffmpeg -i INPUT.avi -vf ass=SUBTITLES.ass -qmin 1 -qmax 3 OUTPUT-WITH-SUBS.avi
 
-### Output to a PAL DVD with top and bottom black bars padding and subtitles
+## Output to a PAL DVD with top and bottom black bars padding and subtitles
 
 This is adjusted for a `720:304` video.
 
     ffmpeg -i INPUT.avi -target pal-dvd -vf 'scale=720:304, pad=720:576:0:136, ass=subtitles.ass' -y OUTPUT-WITH-SUBS.mpg
 
-### Prepare a video for burning on a PAL DVD
+## Prepare a video for burning on a PAL DVD
 
     ffmpeg -i input.avi -f:v scale=720:576 -target pal-dvd output.mpg
 
