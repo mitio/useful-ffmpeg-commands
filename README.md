@@ -33,6 +33,10 @@ The order of the options in an FFmpeg command has some significance, but general
 
     ffmpeg -i skrillex.mp4 -ab 256k skrillex.mp3
 
+## Slice a 1-minute portion of an audio file starting at 2m30s, convert it to MP3 and add audio fade in and fade out effects
+
+    ffmpeg -i INPUT.mp4 -c:a libmp3lame -b:a 128k -ss 00:02:30 -to 00:03:30 -af 'afade=t=in:st=150:d=3,afade=t=out:st=207:d=3' OUTPUT.mp3
+
 ## Slice the first 5 min of a video
 
     ffmpeg -i 038-Speed-Limit-260.avi -c copy -t 00:05:00 Simone_Origone_Speed_Limit_260.avi
