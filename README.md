@@ -85,11 +85,13 @@ This is suitable for playback on a wide range of slower devices. The quality opt
 
 Used for processing videos for [Bansko Film Fest](http://banskofilmfest.com/en/).
 
-    ffmpeg -i original.mp4 -threads 8 -c:v mpeg4 -c:a mp3 -vf scale=-1:720 -qmin 1 -qmax 4 encoded.avi
+    ffmpeg -i original.mp4 -threads 8 -c:v mpeg4 -c:a mp3 -vf scale=-2:720 -qmin 1 -qmax 4 encoded.avi
 
 ## Create a 5-second 720p video from an image
 
-    ffmpeg -loop 1 -i INPUT.png -t 5 -c:v mpeg4 -vf scale=-1:720 -qmin 1 -qmax 3 OUTPUT-5s.avi
+    ffmpeg -loop 1 -i INPUT.png -t 5 -c:v mpeg4 -vf scale=-2:720 -qmin 1 -qmax 3 OUTPUT-5s.avi
+
+The `-2` tells FFMpeg to calculate the output width so that the original aspect ratio is preserved but also to make sure the output width is divisible by 2 as some codecs require even numbers for video width and height. [Read more about scaling here](https://ffmpeg.org/ffmpeg-filters.html#Options-1).
 
 ## Rip a DVD to an mpeg4+mp3 AVI
 
