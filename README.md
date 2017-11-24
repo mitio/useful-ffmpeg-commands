@@ -2,17 +2,15 @@
 
 This repo contains examples for useful FFmpeg commands extracted from practical needs.
 
-## Intro
+## What is FFmpeg?
 
-If you don't know what [FFmpeg](https://www.ffmpeg.org/) is, this page will probably be of little use to you.
+If you haven't met with [FFmpeg](https://www.ffmpeg.org/) yet, this page might be of little use to you.
 
 FFmpeg is a free, open-source software and it's the Swiss Army knife of video- and audio-related processing. It can be used to do an unbelievable range of things and it's being utilized by virtually anyone who's doing any form of video processing. It comes as a command-line tool, but many programs ship with a built-in version of FFmpeg in them to be able to process multimedia files. FFmpeg will run on Linux, Windows, OS X and other platforms.
 
 This is my personal collection of FFmpeg commands, recorded here for myself to come back to and check when I need something. I'm making it public because someone else might find some pieces of information here useful.
 
-**License:** Feel free to use the information here in any way you wish, no
-attribution is needed, but I take no responsibility for the results of your
-actions.
+**License:** Feel free to use the information here in any way you wish, no attribution is needed, but I take no responsibility for the results of your actions.
 
 Some of the commands have been taken verbatim from other sources, others have been heavily modified since. You can find some more commands here:
 
@@ -111,11 +109,19 @@ The examples below assume you have subtitles in a SRT format, encoded in UTF-8.
 
     ffmpeg -i INPUT.avi -vf subtitles=SUBTITLES.srt -qmin 1 -qmax 3 OUTPUT-WITH-SUBS.avi
 
+### Render subtitles at the top with a semi-transparent background
+
+This will embed the subtitles at the top of the video instead of at the bottom as usual. It will also render a semi-transparent black rectangle underneath the subtitle font.
+
+    ffmpeg -i INPUT.avi -vf subtitles="f=SUBTITLES.srt:force_style='FontName=Arial,FontSize=16,OutlineColour=&H55000000,BorderStyle=3,Alignment=6'" ENCODED-WITH-SUBS.avi
+
+The syntax and options for customizing how subtitles are rendered are somewhat unintuitive. Read below to learn more.
+
 ### Add (render) subtitles with different font, colors, etc.
 
-Customizing the font, color, size, background color, etc. of the subtitles can be hard. The options for customizations are actually option names from the ASS subtitles spec ("Advanced SubStation Alpha"). This is what FFmpeg uses internally (via `libass`).
+Customizing the font, color, size, background color, etc. of the subtitles can be hard. The options for customizations are actually option names from the ASS subtitles spec ("Advanced SubStation Alpha"). This is what FFmpeg uses internally (via `libass`). These can be applied both with the `ass` and `subtitles` filters. When using the `subtitles` video filter, FFmpeg converts the subtitles internally to ASS.
 
-To see the available subtitle styling options, download this [Word doc file](http://moodub.free.fr/video/ass-specs.doc) (yes, indeed). I've also included [a PDF version of the Advanced SubStation Alpha (ASS) standard here](ass-specs.pdf).
+To see the available subtitle styling options, download this [Word doc file](http://moodub.free.fr/video/ass-specs.doc) (yes, indeed). I've also included [a PDF version of the Advanced SubStation Alpha (ASS) standard here](ass-specs.pdf). Use this to learn the meaning of the the different fields and their values present in the `force_style` setting from the example above.
 
 The example below prepares a video for burning on a video DVD. The subtitles have a semi-opaque rectangular back background. The `original_size` differs from the resize option because the input is assumed to be 16:9, even though it's stored in a physical resolution of 720x576 (if this confuses you, you're not alone; Google for "SAR" and "DAR").
 
