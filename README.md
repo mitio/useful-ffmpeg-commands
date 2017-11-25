@@ -117,6 +117,17 @@ This will embed the subtitles at the top of the video instead of at the bottom a
 
 The syntax and options for customizing how subtitles are rendered are somewhat unintuitive. Read below to learn more.
 
+### Render mp4 video (x264 + AAC) with embedded subtitles with a background
+
+This is similar to the command above and will render a video with embedded subtitles on a semi-transparent background and a bigger Arial font but in a mp4 container:
+
+    ffmpeg -threads 0 -i INPUT.avi -c:v libx264 -c:a aac -b:a 196k \
+        -vf "subtitles=SUBTITLES.srt:force_style='FontName=Arial,FontSize=22,OutlineColour=&H22000000,BorderStyle=3'" \
+        -f mp4 -preset slow -profile:v baseline -x264opts level=3.0:ref=1 -b:v 2800k \
+        -y OUTPUT_WITH_SUBTITLES.mp4
+
+The background color is in a HEX format. The alpha channel is represented by the first two digits, `22`. The minimum is `00` (opaque) and the maximum is `FF` (fully transparent). The next three digit-pairs represent the red, green and blue channels, respectively.
+
 ### Add (render) subtitles with different font, colors, etc.
 
 Customizing the font, color, size, background color, etc. of the subtitles can be hard. The options for customizations are actually option names from the ASS subtitles spec ("Advanced SubStation Alpha"). This is what FFmpeg uses internally (via `libass`). These can be applied both with the `ass` and `subtitles` filters. When using the `subtitles` video filter, FFmpeg converts the subtitles internally to ASS.
