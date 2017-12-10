@@ -43,7 +43,7 @@ The order of the options in an FFmpeg command has some significance, but general
 
     ffmpeg -i 038-Speed-Limit-260.avi -c copy -ss 00:12:30 -t 00:05:00 Simone_Origone_Speed_Limit_260.avi
 
-## Create x246 mp4 videos suitable for online streaming
+## Create x264 mp4 videos suitable for online streaming
 
 The x264 codec provides a very good compression ratio and a good output quality. The options below are suitable for online embedding/streaming of a video. You will probably need an `webm` version as well as some browsers can't play the mp4 one (see below). Adjust the size and bitrates accordingly.
 
